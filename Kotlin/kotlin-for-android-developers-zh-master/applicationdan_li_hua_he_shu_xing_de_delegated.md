@@ -1,0 +1,3 @@
+# Application单例化和属性的Delegated
+
+我们很快要去实现一个数据库，如果我们想要保持我们代码的简洁性和层次性（而不是把所有代码添加到Activity中），我们就要需要有一个更简单的访问application context的方式。
