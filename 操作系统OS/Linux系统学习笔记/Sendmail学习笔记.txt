@@ -1,0 +1,41 @@
+   //sendmail服务  需要配合DNS服务才能使用
+
+   1.rpm -q sendmail
+
+   2.安装辅助程序
+
+    rpm -ivh sendmail-cf
+ 
+    rpm -ivh m4
+
+   3./etc/mail/sendmail.cf       //sendmail 服务的主配置文件
+
+     /etc/mail/sendmail.mc       //sendmail 服务的宏文件
+
+   4./etc/mail/local-host-names  //能否收信与这个设置有关
+
+     /etc/mail/access.db/ (利用 makemap处理) //是否可以Relay或能否收信的数据库
+
+     /etc/aliases.db (利用 newaliases 处理)  //信箱别名
+
+--------------------------------实际步骤----------------------------------------
+
+   1.vim /etc/mail/sendmail.mc     //修改监听ip网络 
+
+   2.备份sendmaiil.cf 文件
+
+   3.m4 sendmail.mc > sendmail.cf //将sendmail.mc 文件内容 传送到 sendmail.cf
+
+   4.vim local-host-names         //添加主机名为mail域名
+
+   5.vim access                   //添加允许中继的ip或域名
+
+   6.makemap hash access < access //将新建的access传送到原来的access文件
+
+   6.vim /etc/dovecot.conf        //修改验证方式为 imp3 pop3
+
+   7.service sendmail restart
+
+   8.service dovecot restart
+
+   9.service named restart   

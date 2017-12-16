@@ -1,0 +1,33 @@
+iptables -A           //新增一条规则
+iptables -I INPUT 1   //在INPUT链第一处插入一条规则
+iptables -i           //数据包进入的接口
+iptables -o           //数据包传出的接口
+iptables -p           //数据包使用的协议 常用的有 tcp udp icmp all
+iptables -s           //来源ip/网段
+iptables -d           //目标ip/网段
+iptables -j           //后接操作 DROP ACCEPT LOG
+iptables -P           //改变链的处理方式
+iptables -F           //清除所有规则
+iptables -D 链 第几个 //清除指定规则
+iptables --sport      //限制来源端口范围
+iptables --dport      //限制目标端口范围 
+iptables -A INPUT -p icmp --icmp-type 8 -j DROP  //禁ping
+iptables-save > filename    //保存配置
+iptables-restore < filename //导入配置
+
+iptables -A INPUT -m state --state 状态
+
+参数
+-m: 
+ state 状态模块
+ mac   mac地址
+--state
+ INVALID 无效的数据包
+ ESTABLISHED 已经联机成功的联机状态
+ RELATED 与我们主机发送出去的数据包有关
+ NEW      想要新建立联机的数据包状态
+
+eg:
+
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -m state --state INVALID -j DROP

@@ -1,0 +1,8 @@
+VBoxManage internalcommands sethduuid "E:\VirtualBox VMs\XP.vdi"   //修
+改硬盘uid
+
+如果想复制一个新的虚拟盘,可以直接使用下面的命令, 直接复制产生一个生的虚拟盘,并自动更改UUID, 可避免手动复制而产生的问题 :
+
+格式:   命令   "源虚拟盘"   "新的虚拟盘"
+
+VBoxManage clonehd "E:\VirtualBox VMs\XP.vdi" "E:\VirtualBox VMs\XP_1.vdi"

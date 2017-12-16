@@ -1,0 +1,26 @@
+VPN 技术
+
+安装 dkms-2.0.10-1.noarch.rpm
+     Ppp-2.4.3-5.rhel4.i386.rpm
+     Pptpd-1.3.3-1.rhel4.i386.rpm
+     Kernel_ppp_mppe-1.0.2-3dkms.noarch.rpm
+
+  1.编辑 /etc/pptpd.conf       //设置 服务器ip 与分发ip地址范围
+  2.编辑 /etc/ppp/chap_secrets  //配置密码文件 格式  “用户名” 服务  “密码”  分配地址
+  3.进入 /proc/sys/net/ipv4 编辑 ip_forward 用 echo 修改为1 
+  4.启动服务 start
+
+Linux vpn拨号
+
+ppp-2.4.4-2.el5.i386.rpm(http://rpmfind.net)
+libpcap-0.9.4-14.el5.i386.rpm (http://rpmfind.net)
+pptp-1.7.2-3.rhel5.i386.rpm (http://pptpclient.sourceforge.net/)
+
+安装
+rpm -ivh libpcap-0.9.4-14.el5.i386.rpm
+rpm -ivh ppp-2.4.4-2.el5.i386.rpm
+rpm -ivh pptp-1.7.2-3.rhel5.i386.rpm
+rpm -ivh pptp-setup-1.7.2-8.1.el6.i686.rpm
+
+运行
+pptpsetup --create vpn --server 服务器ip地址 --username 你的用户名 --password 你的密码--encrypt --start

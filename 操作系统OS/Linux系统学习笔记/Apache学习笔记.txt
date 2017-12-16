@@ -1,0 +1,41 @@
+apache配置文件目录------/etc/httpd/conf/httpd.conf
+
+apache 主目录-----------/var/www/html
+
+
+apache 的常归配置方法：
+
+1.ip地址限制
+
+order allow,deny
+allow from all
+deny from 192.168.1.0/24 不允许1.0网段主机访问
+
+2.密码限制
+
+（1）<directory “/var/www/html/protect"> 验证目录
+
+      allowoverride authconfig 添加需要验证
+
+      order allow,deny
+
+      allow from all
+
+      </directory>
+
+（2）在验证目录中建立验证文件
+
+     [root@localhost html]# vim .htaccess
+
+     authname"protect test"                //保护名
+ 
+     authtype basic                        //基本验证类型
+
+     authuserfile /var/www/mima.passwd   //验证文件
+
+     require user wjl                       //允许可以使用的账号
+
+3.虚拟目录
+（1）在指定位置建立主页文件
+（2）vim /etc/httpd/conf/httpd.conf
+（3）添加 alias + /别名/ "/目录/"

@@ -1,0 +1,36 @@
+【1】SAMBA服务器介绍
+ 
+  用过windows的人都知道通过网络邻居可以共享资源，但是linux和windows间如何共  享呢？ linux下的共享软件samba，使samba用可以让linux和windows不共享资源。   Samba是一组软件包，使Linux支持SMB协议，该协议是TCP/IP上实现的,使用它可在  windows和linux间共享资源。 
+  SMB协议：(Server Message Block)服务信息块，它提  供了在网络上的丌同计算机不   间共享文件、打印机等。
+
+【2】SAMBA服务器简单配置
+
+   1.创建samba用户：smbpasswd -a hacker 添加smb用户
+   2.然后修改smb.conf文件：
+
+     [global]——全局参数段。这一段中定义的参数是服务器的全局性设置，如果在其                 他段中没有再对这些参数迚行重新设置的话还可以作为它们的默认参                 数
+
+     [home]——个人目录段。如果配置文件中包含这个段，就可以在客户端建立自己在                服务器上的个人目录的连接
+
+     [printers]——打印机共享设置段
+
+     例:
+
+     注意：sercurity=user 改为sercerity=share //匿名用户登录
+    
+     smb.conf:
+     [global]
+     workgroup = mygroup                      ---设置工作组
+     server string = Samba Server Version %v  ---设置版本信息
+     [Sambashare]                             ---共享目录名
+     path = /home/hacker                      ---共享路径
+     writeable = yes                          ---是否可写
+     browseable = yes                         ---是否可见
+     guest account = hacker                   ---设置smb访问用户
+     guest ok =yes                            ---设置允许guest访问
+     write list = wjl        //共享目录写入白名单（表示wjl可以写入）
+     vaild users = aiy       //设置所属用户为aiy
+     
+    smbpasswd -a username 增加用户
+    smbpasswd -x username 删除用户
+    smbpasswd -d username 禁用用户

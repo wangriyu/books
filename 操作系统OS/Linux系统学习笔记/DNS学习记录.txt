@@ -1,0 +1,11 @@
+linux DNS 学习笔记
+
+安装需要的软件
+
+1.图形界面配置
+  bind 9.3 
+  bind-choor 
+  bind-utils
+  system-config-bind 图形界面安装包
+  安装 caching-nameserver //没有互联网的情况下 
+

@@ -1,0 +1,56 @@
+【1】磁盘配额 
+    磁盘配额（quota）一直很有用。比如说，如果你曾经申请过网络的邮件服务，那么    就肯定会知道什么是20M的邮件空间，30M的免费网页空间，这个20M,30M是怎样定义    出来的？就是通过配额。如果要限制用户使用硬盘的容量，就使用磁盘配额。
+
+    磁盘配额的一般用途 
+
+    针对WWW服务器，如每个人的网页空间的容量限制。 
+    针对邮件    服务器，如每个人的邮件空间容量。 
+    针对文件服务器，如每个人最大的可用网络硬    盘空间。
+
+    磁盘配额的使用限制
+
+    仅针对整个分区 核心必须支持磁盘配额 
+    磁盘配额的记录文件（aquota.user，aquota.group）
+    只对一般身份用户有效（root就丌能设置磁盘配额，因为它拥有整个系统的所有数    据）
+
+【2】配置磁盘配额
+
+     1.对分区做磁盘配额，修改/etc/fstab 
+       /dev/sdb1 /pub ext3 defaults,usrquota,grpquota 0 0 
+
+     2.重新挂载/pub分区 mount -o remount /pub
+
+     3.创建配额文件 quotacheck -vug /pub/ -----也可以在配额目录quotaon-avug
+
+     4.对账户迚行配额限制，软限制容量为10k，硬限制容量为20k，创建文件个数的软       限制为4个，硬限制的文件个数为6个
+
+       [root@localhost pub]# edquota -u user01
+
+       Disk quotas for user user01 (uid 500):
+
+       Filesystem blocks soft hard inodes soft hard 
+
+        /dev/sdb1   0     10   20    0      4    6
+
+     限制用户user01的 最小使用容量为10k 最大为20k 文件最小个数为4 最大为6
+
+     Filesystem :代表这个磁盘配额是针对哪一个分区。
+     Blocks:就是当前用户在这个文件系统所消耗的磁盘容量，也就是当前使用的空间       单位是KB这个是quota程序自己计算出来的请丌要修改。
+     Soft不hard，当前用户在文件系统内的磁盘配额限制。
+     Inodes：当前inode的状态，也是磁盘配额自己计算出来的，不要更改。
+
+     5.quotaon /pub  -----也可以在配额目录quotaon-avug
+
+【3】容量验证
+
+    1.容量验证
+      dd if=/dev/zero of=/pub/1.txt bs=1K count=10 
+      dd if=/dev/zero of=/pub/2.txt bs=15K count=1024
+
+    2.文件个数的限制验证
+      touch /pub/3.txt
+      touch /pub/4.txt
+      touch /pub/5.txt
+      
+  
+

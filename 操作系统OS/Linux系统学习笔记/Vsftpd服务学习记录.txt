@@ -1,0 +1,16 @@
+connect_timeout=60
+date_connection_timeout=123
+idle_session_timeout=123
+max_clients=9
+max_per_ip=0
+local_max_rate=0
+anon_max_rate=0
+chroot_local_user=yes
+anon_world_readable_noly=yes
+anon_other_write_enable=yes
+anon_mkdir_write_enable=yes
+anon_upload_enable=yes
+xferlog_enable=yes
+xferlog_file=/var/log/xferlog
+nopriv_user=nobody
+ftpd_banner=banner–≈œ¢

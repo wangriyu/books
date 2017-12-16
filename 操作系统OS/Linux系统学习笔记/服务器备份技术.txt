@@ -1,0 +1,36 @@
+1.打包命令 tar
+
+tar -cvj -f /root/boot.tar.bz2 /boot 
+tar -cvz -f /root/boot.tar.gz /boot 
+tar -xvj -f /root/boot.tar.gz -C /boot
+
+参数详解
+
+-c：新建打包文件
+-v：显示过程
+-j：以bzip2的格式进行压缩 此时文件名最好为*.tar.bz2
+-z：以gzip的格式进行压缩 此时文件名最好为*.tar.gz
+-f：后面接被处理的文件名 
+-x：解包
+-t：查看文件包内含有哪些文件
+-C: 欲解压的目录
+-p：保留备份数据的原始权限与属性，常用于备份重要数据
+
+2.完整备份工具 dump(增量备份)
+
+可以备份整个文件系统，也可以备份单一目录，但最好是用它备份整个文件系统
+
+dump -S /dev/sda1 查看备份此文件系统需要多少容量
+dump -0u -f /root/root.dump /dev/sda1 
+dump -0j -f /root/etc.dump /etc
+restore –r –f +备份文件路径  还原备份文件
+
+参数详解
+
+-S:查看备份此文件系统需要多少容量
+-u:记录时间到/etc/dumpdates文件中
+-v:显示过程
+-j:加入bzip2支持
+-level:备份等级
+-f:接文件
+-w:查看/etc/fstab里面具有dump设置的分区是否有过备份

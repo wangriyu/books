@@ -1,0 +1,77 @@
+
+    Linux软件包管理
+
+    在系统管理中，软件包的管理是最重要的，是系统管理的基础的基础， 只有我们学会软件包的管理才能谈得上其它的应    用。
+
+    RPM： RPM  是软件管理程序，提供软件的安装、升级、查询、反安装的功能。 
+   
+    优点： a、安装方便，软件中所有数据都经过    编译和打包 b、查询、升级、反安装方便 
+    缺点： a、缺乏灵活性 b、存在相依属性
+
+    用法： rpm 参数 软件包
+
+    指令选项
+
+    -i：安装。
+    -U：升级安装，如果不存在也安装。
+    -F：更新安装，如果不存在不安装
+    -v：查看信息。
+    -h：有进度条。
+    -q <软件名>：查询。
+    -qa：查询所有。
+    -ql <软件名>：列出软件的文件清单。
+    --replacepkgs：强制覆盖安装。
+    --nodeps：不考虑相依属性。
+    -e <软件名>：删除软件。
+    -qf <文件名>：查询文件所属软件。
+    -qi <软件名>：列出软件信息。
+
+    YUM
+
+    YUM： yum = Yellow dog Updater, Modified主要功能是更方便的添加/删除/更新RPM包.它能自动解决包的倚赖性问题.
+                它能便于管理大量系统的更新问题
+
+     yum特点
+      
+     *可以同时配置多个资源库(Repository)
+     *简洁的配置文件(/etc/yum.conf)
+     *自动解决增加戒删除rpm包时遇到的倚赖性问题 ----重要！！
+     *保持与RPM数据库的一致性
+     *使用方便
+
+----------yum本地仓库的建立------------------
+
+    1.挂载光盘文件到硬盘：  mount /dev/cdrom /mnt
+    2.安装yum软件       ：  rpm -ivh /mnt/Server/yum-3.2.8-9.el5.noarch.rpm
+    3.配置/etc/yum.conf ：  把gpgcheck=1改成 gpgchenck=0  去掉验证
+    4.配置/etc/yum.repos.d/server.repo
+          [仓库名]
+          name=名字
+          baseurl=file://指向光盘挂载目录
+          enabled=1 0是关闭,1是开启仓库
+----------------------------------------------
+   yum管理软件
+
+   yum install –y software #安装软件
+  
+   yum update -y software #更新软件
+
+   yum remove -y software #删除软件
+
+   yum list #列出资源库中特定的可以安装戒更新以及已经安装的rpm包
+
+   yum grouplist # 列出所有软件包群组
+
+   yum groupinstall ‘包群组名’ # 安装软件包群组
+  
+   yum groupremove ‘包群组名' #册除包组
+
+   yum info 包名 #查看软件包信息
+ 
+   yum search 包名 # 搜索
+
+   yum clean all #清除缓存
+   
+
+
+     
